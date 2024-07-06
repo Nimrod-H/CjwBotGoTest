@@ -11,7 +11,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/tencent-connect/botgo"
 	"github.com/tencent-connect/botgo/dto"
 	"github.com/tencent-connect/botgo/dto/message"
@@ -82,9 +81,6 @@ func ErrorNotifyHandler() event.ErrorNotifyHandler {
 // ATMessageEventHandler 实现处理 at 消息的回调
 func ATMessageEventHandler() event.ATMessageEventHandler {
 	return func(event *dto.WSPayload, data *dto.WSATMessageData) error {
-		input := strings.ToLower(message.ETLInput(data.Content))
-		fmt.Printf("input : %s \n", input)
-		fmt.Printf("data : %+v \n", data)
-		return processor.ProcessMessage(input, data)
+		return processor.ProcessMessage(strings.ToLower(message.ETLInput(data.Content)), data)
 	}
 }
